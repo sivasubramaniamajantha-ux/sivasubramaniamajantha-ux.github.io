@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajantha Devi | Data Science Portfolio</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070812;
+            --bg-soft: #0c1020;
+            --panel: rgba(14, 19, 38, 0.62);
+            --panel-strong: rgba(18, 24, 48, 0.85);
+            --text: #eef2ff;
+            --muted: #b6bfd8;
+            --line: rgba(255, 255, 255, 0.09);
+            --pink: #ff6cab;
+            --violet: #8b7cff;
+            --blue: #54b6ff;
+            --cyan: #61f0e8;
+            --gold: #ffd56a;
+            --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+            --gradient-main: linear-gradient(135deg, #8b7cff 0%, #54b6ff 45%, #61f0e8 100%);
+            --gradient-warm: linear-gradient(135deg, #ff8f70 0%, #ff6cab 55%, #8b7cff 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(139, 124, 255, 0.22), transparent 28%),
+                radial-gradient(circle at 85% 18%, rgba(84, 182, 255, 0.20), transparent 24%),
+                radial-gradient(circle at 55% 85%, rgba(255, 108, 171, 0.14), transparent 22%),
+                linear-gradient(180deg, #06070f 0%, #0a0d18 50%, #06070f 100%);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+            background-size: 42px 42px;
+            mask-image: radial-gradient(circle at center, black 38%, transparent 88%);
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .aurora,
+        .aurora::before,
+        .aurora::after {
+            position: fixed;
+            inset: auto;
+            width: 40vw;
+            height: 40vw;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.28;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .aurora {
+            top: -10vw;
+            left: -8vw;
+            background: rgba(139, 124, 255, 0.45);
+            animation: drift 16s ease-in-out infinite;
+        }
+
+        .aurora::before {
+            content: "";
+            top: 10vh;
+            right: -42vw;
+            background: rgba(84, 182, 255, 0.35);
+            animation: drift 20s ease-in-out infinite reverse;
+        }
+
+        .aurora::after {
+            content: "";
+            bottom: -26vw;
+            left: 35vw;
+            background: rgba(255, 108, 171, 0.28);
+            animation: drift 22s ease-in-out infinite;
+        }
+
+        @keyframes drift {
+
+            0%,
+            100% {
+                transform: translate3d(0, 0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate3d(40px, 30px, 0) scale(1.12);
+            }
+        }
+
+        .container {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(18px);
+            background: rgba(7, 8, 18, 0.72);
+            border-bottom: 1px solid var(--line);
+        }
+
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 78px;
+            gap: 20px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: white;
+            letter-spacing: -0.03em;
+        }
+
+        .logo span {
+            background: var(--gradient-warm);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.4rem;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: 0.25s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+        }
+
+        .hero {
+            padding: 96px 0 64px;
+            position: relative;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .hero-card,
+        .glass {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(18px);
+        }
+
+        .hero-card {
+            padding: 34px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 45%, rgba(255, 255, 255, 0.03));
+            pointer-events: none;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 18px var(--cyan);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.4);
+                opacity: 1;
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 7vw, 5.8rem);
+            line-height: 0.96;
+            letter-spacing: -0.05em;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 .accent {
+            background: var(--gradient-warm);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p.lead {
+            font-size: 1.08rem;
+            line-height: 1.9;
+            color: var(--muted);
+            max-width: 760px;
+            margin-bottom: 24px;
+        }
+
+        .hero-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+
+        .pill {
+            padding: 10px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            background: rgba(255, 255, 255, 0.045);
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 50px;
+            padding: 0 22px;
+            text-decoration: none;
+            border-radius: 999px;
+            font-weight: 700;
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+        }
+
+        .btn-primary {
+            background: var(--gradient-main);
+            color: #06111f;
+            box-shadow: 0 18px 40px rgba(84, 182, 255, 0.22);
+        }
+
+        .btn-secondary {
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .profile-panel {
+            padding: 22px;
+            display: grid;
+            gap: 16px;
+            align-content: start;
+        }
+
+        .photo-card {
+            position: relative;
+            min-height: 380px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-placeholder {
+            height: 100%;
+            display: grid;
+            place-items: center;
+            padding: 28px;
+            text-align: center;
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 0.98rem;
+            background:
+                radial-gradient(circle at top, rgba(139, 124, 255, 0.28), transparent 45%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+        }
+
+        .photo-badge {
+            position: absolute;
+            left: 16px;
+            bottom: 16px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(7, 8, 18, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .profile-top {
+            padding: 20px;
+            border-radius: 22px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mini-tag {
+            color: var(--gold);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .profile-top h3 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+        }
+
+        .profile-top p {
+            color: var(--muted);
+            line-height: 1.75;
+            font-size: 0.95rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .stat {
+            padding: 18px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+        }
+
+        .stat span {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        section {
+            padding: 44px 0 26px;
+        }
+
+        .section-head {
+            margin-bottom: 24px;
+        }
+
+        .section-kicker {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 0.82rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .section-text {
+            max-width: 760px;
+            line-height: 1.85;
+            color: var(--muted);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.12fr 0.88fr;
+            gap: 24px;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 26px;
+            padding: 28px;
+            backdrop-filter: blur(16px);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel::before {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 3px;
+            background: var(--gradient-main);
+            opacity: 0.9;
+        }
+
+        .about-copy p {
+            color: var(--muted);
+            line-height: 1.9;
+            margin-bottom: 16px;
+        }
+
+        .focus-list {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .focus-list li {
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.045);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text);
+        }
+
+        .timeline {
+            display: grid;
+            gap: 16px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 16px 16px 16px 22px;
+            border-left: 2px solid rgba(97, 240, 232, 0.35);
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 0 18px 18px 0;
+        }
+
+        .timeline-item small {
+            display: inline-block;
+            margin-bottom: 6px;
+            color: var(--gold);
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .timeline-item h4 {
+            font-size: 1.02rem;
+            margin-bottom: 6px;
+        }
+
+        .timeline-item p {
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 22px;
+            box-shadow: var(--shadow);
+            transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease;
+            backdrop-filter: blur(16px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 40%, rgba(139, 124, 255, 0.08));
+            opacity: 0;
+            transition: opacity .28s ease;
+            pointer-events: none;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(139, 124, 255, 0.38);
+            box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 14px;
+            font-size: 1.3rem;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: var(--muted);
+            line-height: 1.75;
+            font-size: 0.94rem;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .project {
+            background: var(--panel-strong);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: .3s ease;
+        }
+
+        .project::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(155deg, rgba(139, 124, 255, 0.10), transparent 45%, rgba(84, 182, 255, 0.10));
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .project:hover {
+            transform: translateY(-8px);
+            border-color: rgba(97, 240, 232, 0.28);
+        }
+
+        .project-index {
+            display: inline-flex;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--gold);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .project h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.55rem;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .project p {
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 16px;
+            font-size: 0.96rem;
+        }
+
+        .project ul {
+            list-style: none;
+            display: grid;
+            gap: 9px;
+            margin-bottom: 18px;
+        }
+
+        .project li {
+            color: var(--text);
+            font-size: 0.93rem;
+            line-height: 1.65;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .project li::before {
+            content: "";
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--cyan);
+            left: 0;
+            top: 9px;
+            box-shadow: 0 0 14px rgba(97, 240, 232, 0.8);
+        }
+
+        .project-shot {
+            margin: 0 0 18px;
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+            aspect-ratio: 16 / 10;
+            position: relative;
+        }
+
+        .project-shot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .shot-placeholder {
+            height: 100%;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            padding: 18px;
+            color: var(--muted);
+            line-height: 1.8;
+            background:
+                radial-gradient(circle at top, rgba(84, 182, 255, 0.16), transparent 42%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .tag {
+            padding: 8px 11px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.82rem;
+            color: var(--text);
+        }
+
+        .project a {
+            text-decoration: none;
+            color: var(--cyan);
+            font-weight: 700;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 18px;
+        }
+
+        .contact-item {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .contact-item strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1rem;
+        }
+
+        .contact-item span {
+            color: var(--muted);
+            font-size: 0.94rem;
+            line-height: 1.7;
+        }
+
+        footer {
+            padding: 36px 0 54px;
+            color: var(--muted);
+            text-align: center;
+            font-size: 0.92rem;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity .9s ease, transform .9s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 1100px) {
+
+            .hero-grid,
+            .grid-2,
+            .cards,
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 760px) {
+            nav .container {
+                padding: 14px 0;
+            }
+
+            .nav-links {
+                gap: 0.9rem;
+            }
+
+            .hero {
+                padding-top: 64px;
+            }
+
+            .hero-grid,
+            .grid-2,
+            .cards,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-card,
+            .panel,
+            .profile-panel,
+            .card,
+            .project {
+                padding: 20px;
+            }
+
+            .container {
+                width: min(100% - 20px, 1180px);
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="aurora"></div>
+
+    <nav>
+        <div class="container">
+            <a href="#top" class="logo">My <span>Portfolio</span></a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="top">
+        <section class="hero reveal">
+            <div class="container hero-grid">
+                <div class="hero-card">
+                    <div class="eyebrow"><span class="dot"></span> Data Science Undergraduate • Blockchain Builder</div>
+                    <h1>Elegant <span class="accent">Data</span>,<br>Smart <span
+                            class="accent">Systems</span>,<br>Practical Results.</h1>
+                    <p class="lead">I’m S. Ajantha Devi, a motivated Data Science student with a Higher Diploma in
+                        Computing and Software Engineering, building practical work across Python analysis, Tableau
+                        dashboards, SQL, and smart contract development. I enjoy turning learning into polished outputs
+                        that are clear, useful, and visually strong.</p>
+                    <div class="hero-pills">
+                        <span class="pill">Python</span>
+                        <span class="pill">Tableau</span>
+                        <span class="pill">R</span>
+                        <span class="pill">SQL</span>
+                        <span class="pill">Solidity</span>
+                        <span class="pill">HTML / CSS / JavaScript</span>
+                        <span class="pill">Remix IDE</span>
+                        <span class="pill">Business Intelligence</span>
+                    </div>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#projects">View My Projects</a>
+                        <a class="btn btn-secondary" href="#contact">Get In Touch</a>
+                    </div>
+                </div>
+
+                <aside class="glass profile-panel reveal">
+                    <div class="photo-card">
+                        <!-- Replace profile-photo.jpg with your real photo file name after uploading it to GitHub -->
+                        <!-- Example: <img src="profile-photo.jpg" alt="Ajantha Devi"> -->
+                        <div class="photo-placeholder">
+                            Upload your photo to GitHub and replace this box with:<br><strong>&lt;img
+                                src="profile-photo.jpg" alt="Ajantha Devi"&gt;</strong>
+                        </div>
+                        <div class="photo-badge">Add Your Professional Photo</div>
+                    </div>
+                    <div class="profile-top">
+                        <span class="mini-tag">Profile Snapshot</span>
+                        <h3>Aspiring Data Analyst</h3>
+                        <p>Entry-level candidate with academic training in data science and prior professional
+                            experience in accounting, HR support, billing, and administration. Strong work ethic, fast
+                            learning ability, and practical project mindset.</p>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat">
+                            <strong>2025</strong>
+                            <span>Currently pursuing BSc in Data Science</span>
+                        </div>
+                        <div class="stat">
+                            <strong>2024</strong>
+                            <span>Completed Higher Diploma in Computing and Software Engineering</span>
+                        </div>
+                        <div class="stat">
+                            <strong>4+ yrs</strong>
+                            <span>Experience across accounting, HR support and administration</span>
+                        </div>
+                        <div class="stat">
+                            <strong>Goal</strong>
+                            <span>Grow in data analytics, BI, and practical software development</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section id="about" class="reveal">
+            <div class="container grid-2">
+                <div class="panel about-copy">
+                    <div class="section-head">
+                        <span class="section-kicker">About Me</span>
+                        <h2 class="section-title">A balanced mix of technical learning and real work discipline</h2>
+                    </div>
+                    <p>I am building my career at the intersection of data, dashboards, and digital solutions. My
+                        academic path includes a Higher Diploma in Computing and Software Engineering and current
+                        studies in Data Science, while my professional background gave me hands-on responsibility in
+                        finance, operations, reception, billing, and HR-related support.</p>
+                    <p>This combination helps me approach projects with both technical curiosity and practical
+                        discipline. I focus on creating outputs that are not only functional, but also clear,
+                        presentable, and useful for real decision-making.</p>
+                    <p>I am especially interested in data analyst roles, business intelligence work, and
+                        portfolio-driven software projects that demonstrate growth through real implementation.</p>
+                    <ul class="focus-list">
+                        <li>Strong interest in data analysis, reporting, and dashboard storytelling</li>
+                        <li>Hands-on blockchain project work using Solidity and Remix</li>
+                        <li>Comfortable improving work through repeated refinement and testing</li>
+                        <li>Motivated, adaptable, and detail-oriented in both study and practice</li>
+                    </ul>
+                </div>
+
+                <div id="education" class="panel">
+                    <div class="section-head">
+                        <span class="section-kicker">Education</span>
+                        <h2 class="section-title">Academic Journey</h2>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <small>Current</small>
+                            <h4>Bachelor of Science in Data Science</h4>
+                            <p>Currently pursuing studies at ICBT Campus, Colombo, building knowledge in analytics,
+                                data-driven thinking, and practical technical work.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <small>Completed in 2024</small>
+                            <h4>Higher Diploma in Computing and Software Engineering</h4>
+                            <p>Completed through Cardiff Metropolitan University at ICBT Campus, Kandy, with a
+                                foundation in software, systems, and computing concepts.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <small>Additional</small>
+                            <h4>Diploma in English Language</h4>
+                            <p>Completed with a credit pass, strengthening communication for academic, professional, and
+                                presentation work.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="reveal">
+            <div class="container">
+                <div class="section-head">
+                    <span class="section-kicker">Skills & Strengths</span>
+                    <h2 class="section-title">Core capabilities I bring into projects</h2>
+                    <p class="section-text">These skills reflect both the portfolio work already built and the qualities
+                        highlighted in my CV: fast learning, adaptability, teamwork, strong work ethic, and a practical
+                        mindset toward completing real tasks well.</p>
+                </div>
+                <div class="cards">
+                    <article class="card">
+                        <div class="icon">📊</div>
+                        <h3>Tableau & Dashboard Design</h3>
+                        <p>Creating interactive dashboards, filters, calculated fields, and polished visual storytelling
+                            for academic and analytical reporting.</p>
+                    </article>
+                    <article class="card">
+                        <div class="icon">🐍</div>
+                        <h3>Python for Analysis</h3>
+                        <p>Working with data cleaning, exploratory analysis, feature creation, visualisation, and
+                            interpretation using practical academic workflows.</p>
+                    </article>
+                    <article class="card">
+                        <div class="icon">🗂️</div>
+                        <h3>SQL & Structured Data</h3>
+                        <p>Querying datasets, filtering records, and thinking in a structured way when working with
+                            business and data tasks.</p>
+                    </article>
+                    <article class="card">
+                        <div class="icon">⛓️</div>
+                        <h3>Solidity & Smart Contracts</h3>
+                        <p>Building tokenization logic, asset ownership functions, transactions, and project-based
+                            blockchain solutions using Remix IDE.</p>
+                    </article>
+                    <article class="card">
+                        <div class="icon">💻</div>
+                        <h3>Frontend Basics</h3>
+                        <p>Using HTML, CSS, and JavaScript to create clean interfaces for portfolios and project
+                            demonstrations.</p>
+                    </article>
+                    <article class="card">
+                        <div class="icon">🧠</div>
+                        <h3>Problem Solving</h3>
+                        <p>Breaking large assignment requirements into smaller tasks, debugging issues, and improving
+                            quality step by step.</p>
+                    </article>
+                    <article class="card">
+                        <div class="icon">🤝</div>
+                        <h3>Teamwork & Adaptability</h3>
+                        <p>Motivated to learn quickly, work with others, and contribute reliably in dynamic
+                            environments.</p>
+                    </article>
+                    <article class="card">
+                        <div class="icon">📌</div>
+                        <h3>Professional Discipline</h3>
+                        <p>Attention to detail developed through experience in accounting, reception, billing,
+                            reporting, and HR-related responsibilities.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="reveal">
+            <div class="container">
+                <div class="section-head">
+                    <span class="section-kicker">Featured Projects</span>
+                    <h2 class="section-title">Work that reflects my learning journey</h2>
+                    <p class="section-text">I added project screenshot areas, so your portfolio can look more premium.
+                        Upload your images to GitHub and replace each placeholder with a real screenshot file.</p>
+                </div>
+                <div class="projects">
+                    <article class="project">
+                        <div class="project-index">Project 01</div>
+                        <div class="project-shot">
+                            <!-- Replace dapp-screenshot.jpg with your actual image -->
+                            <!-- Example: <img src="dapp-screenshot.jpg" alt="Real Estate Tokenization DApp Screenshot"> -->
+                            <div class="shot-placeholder">Add your DApp screenshot
+                                here<br><strong>dapp-screenshot.jpg</strong></div>
+                        </div>
+                        <h3>Real Estate Tokenization DApp</h3>
+                        <p>A blockchain-based solution for tokenizing real estate into fractional shares using Solidity
+                            smart contracts and a connected frontend interface.</p>
+                        <ul>
+                            <li>Created tokenized assets with fractional ownership logic</li>
+                            <li>Supported buy, sell, and transfer functions</li>
+                            <li>Calculated owners and top 10 beneficiaries</li>
+                            <li>Focused on assignment alignment, usability, and contract logic</li>
+                        </ul>
+                        <div class="tags">
+                            <span class="tag">Solidity</span><span class="tag">Remix IDE</span><span
+                                class="tag">ERC-1155</span><span class="tag">MetaMask</span><span class="tag">Frontend
+                                UI</span>
+                        </div>
+                        <a href="#">Add GitHub Repo Link →</a>
+                    </article>
+
+                    <article class="project">
+                        <div class="project-index">Project 02</div>
+                        <div class="project-shot">
+                            <!-- Replace tableau-dashboard.jpg with your actual image -->
+                            <!-- Example: <img src="tableau-dashboard.jpg" alt="Student Performance Tableau Dashboard Screenshot"> -->
+                            <div class="shot-placeholder">Add your Tableau dashboard screenshot
+                                here<br><strong>tableau-dashboard.jpg</strong></div>
+                        </div>
+                        <h3>Student Performance Tableau Dashboard</h3>
+                        <p>An interactive dashboard exploring grades, absences, alcohol consumption, and student risk
+                            patterns through clear visual storytelling.</p>
+                        <ul>
+                            <li>Built scatter, bar, and insight-driven dashboard views</li>
+                            <li>Used calculated fields and interactive filters</li>
+                            <li>Highlighted performance and at-risk student segments</li>
+                            <li>Balanced analysis quality with elegant presentation</li>
+                        </ul>
+                        <div class="tags">
+                            <span class="tag">Tableau</span><span class="tag">Dashboard Design</span><span
+                                class="tag">Calculated Fields</span><span class="tag">Storytelling</span>
+                        </div>
+                        <a href="#">Add Dashboard Link →</a>
+                    </article>
+
+                    <article class="project">
+                        <div class="project-index">Project 03</div>
+                        <div class="project-shot">
+                            <!-- Replace python-analysis.jpg with your actual image -->
+                            <!-- Example: <img src="python-analysis.jpg" alt="Python Data Analysis Screenshot"> -->
+                            <div class="shot-placeholder">Add your Python analysis screenshot
+                                here<br><strong>python-analysis.jpg</strong></div>
+                        </div>
+                        <h3>Python Data Analysis Portfolio</h3>
+                        <p>A set of practical academic analyses using Python to clean data, discover patterns, and
+                            support reports with interpretable insights.</p>
+                        <ul>
+                            <li>Performed data cleaning and feature engineering</li>
+                            <li>Used charts and simple statistics to explain results</li>
+                            <li>Connected EDA outputs to dashboard development</li>
+                            <li>Presented results in a clear, understandable format</li>
+                        </ul>
+                        <div class="tags">
+                            <span class="tag">Python</span><span class="tag">Pandas</span><span
+                                class="tag">Matplotlib</span><span class="tag">EDA</span>
+                        </div>
+                        <a href="#">Add Project Link →</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="reveal">
+            <div class="container grid-2">
+                <div class="panel">
+                    <div class="section-head">
+                        <span class="section-kicker">Experience</span>
+                        <h2 class="section-title">Professional background</h2>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <small>2021 – 2025</small>
+                            <h4>Accountant & HR Assistant</h4>
+                            <p>Handled daily accounting operations, reports, reconciliations, salaries, and HR-related
+                                responsibilities. Supported accurate records, compliance, and practical business
+                                operations.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <small>2019 – 2021</small>
+                            <h4>Cashier, Billing & Receptionist</h4>
+                            <p>Managed payments, front desk communication, billing records, appointments, and
+                                confidential information handling with professionalism and accuracy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="section-head">
+                        <span class="section-kicker">Leadership & Activities</span>
+                        <h2 class="section-title">Beyond coursework</h2>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <small>School Leadership</small>
+                            <h4>Prefect & Senior Prefect Roles</h4>
+                            <p>Developed responsibility, organisation, and confidence through school leadership
+                                positions.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <small>Society Leadership</small>
+                            <h4>President of Hindu and Tamil Societies</h4>
+                            <p>Gained teamwork, event involvement, and communication experience through active
+                                participation and leadership.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <small>Support Role</small>
+                            <h4>First Aid Team Leadership</h4>
+                            <p>Built reliability and calm decision-making through supportive and service-oriented school
+                                responsibilities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="reveal">
+            <div class="container">
+                <div class="panel">
+                    <div class="section-head">
+                        <span class="section-kicker">Contact</span>
+                        <h2 class="section-title">Let’s connect professionally</h2>
+                        <p class="section-text">I also added a downloadable CV button. Upload your PDF to the same
+                            GitHub repository and keep the file name exactly as shown below, or change the link if you
+                            rename the file.</p>
+                    </div>
+                    <div class="contact-grid">
+                        <a class="card contact-item" href="mailto:sivasubramaniamajantha@gmail.com">
+                            <div class="icon">📧</div>
+                            <strong>Email</strong>
+                            <span>sivasubramaniamajantha@gmail.com</span>
+                        </a>
+                        <a class="card contact-item" href="#">
+                            <div class="icon">💻</div>
+                            <strong>GitHub</strong>
+                            <span>Add your exact GitHub profile URL here</span>
+                        </a>
+                        <a class="card contact-item" href="#">
+                            <div class="icon">💼</div>
+                            <strong>LinkedIn</strong>
+                            <span>Add your LinkedIn profile URL here</span>
+                        </a>
+                        <a class="card contact-item" href="AjanthaDevi_CV_new.pdf" download>
+                            <div class="icon">📄</div>
+                            <strong>Download CV</strong>
+                            <span>Upload the PDF to GitHub with this same file name</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">© 2026 Ajantha Devi • Designed for an elegant public portfolio with strong visual
+            storytelling.</div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', e => {
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.14, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        const sections = document.querySelectorAll('main section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                if (window.scrollY >= section.offsetTop - 140) current = section.id;
+            });
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 18;
+            const y = (e.clientY / window.innerHeight - 0.5) * 18;
+            document.querySelectorAll('.hero-card, .profile-panel').forEach((el, index) => {
+                const factor = index === 0 ? 1 : 0.7;
+                el.style.transform = `translate3d(${x * factor}px, ${y * factor}px, 0)`;
+            });
+        });
+    </script>
+</body>
+
+</html>
