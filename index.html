@@ -2,1253 +2,935 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ajantha Devi | Data Science Portfolio</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <style>
-        :root {
-            --bg: #070812;
-            --bg-soft: #0c1020;
-            --panel: rgba(14, 19, 38, 0.62);
-            --panel-strong: rgba(18, 24, 48, 0.85);
-            --text: #eef2ff;
-            --muted: #b6bfd8;
-            --line: rgba(255, 255, 255, 0.09);
-            --pink: #ff6cab;
-            --violet: #8b7cff;
-            --blue: #54b6ff;
-            --cyan: #61f0e8;
-            --gold: #ffd56a;
-            --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
-            --gradient-main: linear-gradient(135deg, #8b7cff 0%, #54b6ff 45%, #61f0e8 100%);
-            --gradient-warm: linear-gradient(135deg, #ff8f70 0%, #ff6cab 55%, #8b7cff 100%);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background:
-                radial-gradient(circle at 15% 20%, rgba(139, 124, 255, 0.22), transparent 28%),
-                radial-gradient(circle at 85% 18%, rgba(84, 182, 255, 0.20), transparent 24%),
-                radial-gradient(circle at 55% 85%, rgba(255, 108, 171, 0.14), transparent 22%),
-                linear-gradient(180deg, #06070f 0%, #0a0d18 50%, #06070f 100%);
-            color: var(--text);
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-            background-size: 42px 42px;
-            mask-image: radial-gradient(circle at center, black 38%, transparent 88%);
-            pointer-events: none;
-            z-index: -2;
-        }
-
-        .aurora,
-        .aurora::before,
-        .aurora::after {
-            position: fixed;
-            inset: auto;
-            width: 40vw;
-            height: 40vw;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.28;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .aurora {
-            top: -10vw;
-            left: -8vw;
-            background: rgba(139, 124, 255, 0.45);
-            animation: drift 16s ease-in-out infinite;
-        }
-
-        .aurora::before {
-            content: "";
-            top: 10vh;
-            right: -42vw;
-            background: rgba(84, 182, 255, 0.35);
-            animation: drift 20s ease-in-out infinite reverse;
-        }
-
-        .aurora::after {
-            content: "";
-            bottom: -26vw;
-            left: 35vw;
-            background: rgba(255, 108, 171, 0.28);
-            animation: drift 22s ease-in-out infinite;
-        }
-
-        @keyframes drift {
-
-            0%,
-            100% {
-                transform: translate3d(0, 0, 0) scale(1);
-            }
-
-            50% {
-                transform: translate3d(40px, 30px, 0) scale(1.12);
-            }
-        }
-
-        .container {
-            width: min(1180px, calc(100% - 32px));
-            margin: 0 auto;
-        }
-
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 20;
-            backdrop-filter: blur(18px);
-            background: rgba(7, 8, 18, 0.72);
-            border-bottom: 1px solid var(--line);
-        }
-
-        nav .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            min-height: 78px;
-            gap: 20px;
-        }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.45rem;
-            font-weight: 800;
-            text-decoration: none;
-            color: white;
-            letter-spacing: -0.03em;
-        }
-
-        .logo span {
-            background: var(--gradient-warm);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.4rem;
-        }
-
-        .nav-links a {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 600;
-            transition: 0.25s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--text);
-        }
-
-        .hero {
-            padding: 96px 0 64px;
-            position: relative;
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 28px;
-            align-items: stretch;
-        }
-
-        .hero-card,
-        .glass {
-            background: var(--panel);
-            border: 1px solid var(--line);
-            border-radius: 28px;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(18px);
-        }
-
-        .hero-card {
-            padding: 34px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-card::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 45%, rgba(255, 255, 255, 0.03));
-            pointer-events: none;
-        }
-
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 16px;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text);
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--cyan);
-            box-shadow: 0 0 18px var(--cyan);
-            animation: pulse 1.8s infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-
-            50% {
-                transform: scale(1.4);
-                opacity: 1;
-            }
-        }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.8rem, 7vw, 5.8rem);
-            line-height: 0.96;
-            letter-spacing: -0.05em;
-            margin-bottom: 18px;
-        }
-
-        .hero h1 .accent {
-            background: var(--gradient-warm);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p.lead {
-            font-size: 1.08rem;
-            line-height: 1.9;
-            color: var(--muted);
-            max-width: 760px;
-            margin-bottom: 24px;
-        }
-
-        .hero-pills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 28px;
-        }
-
-        .pill {
-            padding: 10px 14px;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.11);
-            background: rgba(255, 255, 255, 0.045);
-            font-size: 0.9rem;
-            color: var(--text);
-        }
-
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            min-height: 50px;
-            padding: 0 22px;
-            text-decoration: none;
-            border-radius: 999px;
-            font-weight: 700;
-            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-        }
-
-        .btn-primary {
-            background: var(--gradient-main);
-            color: #06111f;
-            box-shadow: 0 18px 40px rgba(84, 182, 255, 0.22);
-        }
-
-        .btn-secondary {
-            color: var(--text);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-        }
-
-        .profile-panel {
-            padding: 22px;
-            display: grid;
-            gap: 16px;
-            align-content: start;
-        }
-
-        .photo-card {
-            position: relative;
-            min-height: 380px;
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
-        }
-
-        .photo-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .photo-placeholder {
-            height: 100%;
-            display: grid;
-            place-items: center;
-            padding: 28px;
-            text-align: center;
-            color: var(--muted);
-            line-height: 1.8;
-            font-size: 0.98rem;
-            background:
-                radial-gradient(circle at top, rgba(139, 124, 255, 0.28), transparent 45%),
-                linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-        }
-
-        .photo-badge {
-            position: absolute;
-            left: 16px;
-            bottom: 16px;
-            padding: 10px 14px;
-            border-radius: 999px;
-            background: rgba(7, 8, 18, 0.72);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(12px);
-            font-size: 0.82rem;
-            font-weight: 700;
-        }
-
-        .profile-top {
-            padding: 20px;
-            border-radius: 22px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .mini-tag {
-            color: var(--gold);
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .profile-top h3 {
-            font-size: 1.25rem;
-            margin-bottom: 8px;
-        }
-
-        .profile-top p {
-            color: var(--muted);
-            line-height: 1.75;
-            font-size: 0.95rem;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
-
-        .stat {
-            padding: 18px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .stat strong {
-            display: block;
-            font-size: 1.3rem;
-            margin-bottom: 6px;
-        }
-
-        .stat span {
-            color: var(--muted);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        section {
-            padding: 44px 0 26px;
-        }
-
-        .section-head {
-            margin-bottom: 24px;
-        }
-
-        .section-kicker {
-            color: var(--gold);
-            font-weight: 700;
-            font-size: 0.82rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 5vw, 3.4rem);
-            letter-spacing: -0.04em;
-            line-height: 1;
-            margin-bottom: 10px;
-        }
-
-        .section-text {
-            max-width: 760px;
-            line-height: 1.85;
-            color: var(--muted);
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1.12fr 0.88fr;
-            gap: 24px;
-        }
-
-        .panel {
-            background: var(--panel);
-            border: 1px solid var(--line);
-            border-radius: 26px;
-            padding: 28px;
-            backdrop-filter: blur(16px);
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .panel::before {
-            content: "";
-            position: absolute;
-            inset: 0 0 auto 0;
-            height: 3px;
-            background: var(--gradient-main);
-            opacity: 0.9;
-        }
-
-        .about-copy p {
-            color: var(--muted);
-            line-height: 1.9;
-            margin-bottom: 16px;
-        }
-
-        .focus-list {
-            list-style: none;
-            display: grid;
-            gap: 10px;
-            margin-top: 18px;
-        }
-
-        .focus-list li {
-            padding: 14px 16px;
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.045);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--text);
-        }
-
-        .timeline {
-            display: grid;
-            gap: 16px;
-        }
-
-        .timeline-item {
-            position: relative;
-            padding: 16px 16px 16px 22px;
-            border-left: 2px solid rgba(97, 240, 232, 0.35);
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 0 18px 18px 0;
-        }
-
-        .timeline-item small {
-            display: inline-block;
-            margin-bottom: 6px;
-            color: var(--gold);
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-        }
-
-        .timeline-item h4 {
-            font-size: 1.02rem;
-            margin-bottom: 6px;
-        }
-
-        .timeline-item p {
-            color: var(--muted);
-            line-height: 1.7;
-            font-size: 0.95rem;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
-        }
-
-        .card {
-            background: var(--panel);
-            border: 1px solid var(--line);
-            border-radius: 24px;
-            padding: 22px;
-            box-shadow: var(--shadow);
-            transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease;
-            backdrop-filter: blur(16px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 40%, rgba(139, 124, 255, 0.08));
-            opacity: 0;
-            transition: opacity .28s ease;
-            pointer-events: none;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(139, 124, 255, 0.38);
-            box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
-        }
-
-        .card:hover::after {
-            opacity: 1;
-        }
-
-        .icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 16px;
-            display: grid;
-            place-items: center;
-            margin-bottom: 14px;
-            font-size: 1.3rem;
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .card h3 {
-            font-size: 1.05rem;
-            margin-bottom: 8px;
-        }
-
-        .card p {
-            color: var(--muted);
-            line-height: 1.75;
-            font-size: 0.94rem;
-        }
-
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .project {
-            background: var(--panel-strong);
-            border: 1px solid var(--line);
-            border-radius: 28px;
-            padding: 24px;
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-            transition: .3s ease;
-        }
-
-        .project::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(155deg, rgba(139, 124, 255, 0.10), transparent 45%, rgba(84, 182, 255, 0.10));
-            opacity: 0.8;
-            pointer-events: none;
-        }
-
-        .project:hover {
-            transform: translateY(-8px);
-            border-color: rgba(97, 240, 232, 0.28);
-        }
-
-        .project-index {
-            display: inline-flex;
-            padding: 7px 12px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--gold);
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-        }
-
-        .project h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.55rem;
-            line-height: 1.15;
-            margin-bottom: 12px;
-        }
-
-        .project p {
-            color: var(--muted);
-            line-height: 1.8;
-            margin-bottom: 16px;
-            font-size: 0.96rem;
-        }
-
-        .project ul {
-            list-style: none;
-            display: grid;
-            gap: 9px;
-            margin-bottom: 18px;
-        }
-
-        .project li {
-            color: var(--text);
-            font-size: 0.93rem;
-            line-height: 1.65;
-            padding-left: 16px;
-            position: relative;
-        }
-
-        .project li::before {
-            content: "";
-            position: absolute;
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--cyan);
-            left: 0;
-            top: 9px;
-            box-shadow: 0 0 14px rgba(97, 240, 232, 0.8);
-        }
-
-        .project-shot {
-            margin: 0 0 18px;
-            border-radius: 22px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(255, 255, 255, 0.04);
-            aspect-ratio: 16 / 10;
-            position: relative;
-        }
-
-        .project-shot img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .shot-placeholder {
-            height: 100%;
-            display: grid;
-            place-items: center;
-            text-align: center;
-            padding: 18px;
-            color: var(--muted);
-            line-height: 1.8;
-            background:
-                radial-gradient(circle at top, rgba(84, 182, 255, 0.16), transparent 42%),
-                linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
-        }
-
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 18px;
-        }
-
-        .tag {
-            padding: 8px 11px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            font-size: 0.82rem;
-            color: var(--text);
-        }
-
-        .project a {
-            text-decoration: none;
-            color: var(--cyan);
-            font-weight: 700;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 18px;
-        }
-
-        .contact-item {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .contact-item strong {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 1rem;
-        }
-
-        .contact-item span {
-            color: var(--muted);
-            font-size: 0.94rem;
-            line-height: 1.7;
-        }
-
-        footer {
-            padding: 36px 0 54px;
-            color: var(--muted);
-            text-align: center;
-            font-size: 0.92rem;
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity .9s ease, transform .9s ease;
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @media (max-width: 1100px) {
-
-            .hero-grid,
-            .grid-2,
-            .cards,
-            .contact-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .projects {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 760px) {
-            nav .container {
-                padding: 14px 0;
-            }
-
-            .nav-links {
-                gap: 0.9rem;
-            }
-
-            .hero {
-                padding-top: 64px;
-            }
-
-            .hero-grid,
-            .grid-2,
-            .cards,
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-card,
-            .panel,
-            .profile-panel,
-            .card,
-            .project {
-                padding: 20px;
-            }
-
-            .container {
-                width: min(100% - 20px, 1180px);
-            }
-
-            .hero-actions {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ajantha Devi | Data Science Portfolio</title>
+  <meta name="description" content="Portfolio of Ajantha Devi, BSc Data Science student and aspiring data analyst.">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FAFAF7;
+      --ink: #1B2623;
+      --muted: #5E6B67;
+      --line: #E3E6DF;
+      --chip: #EEF1EA;
+      --teal: #0F4C4A;
+      --gold: #A67C2E;
+      --deep: #0E1715;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --grad: linear-gradient(90deg, #0F4C4A, #2F7A6D 55%, #B08A3E)
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font: 400 1.05rem/1.65 var(--sans);
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh
+    }
+
+    main {
+      flex: 1
+    }
+
+    a {
+      color: inherit
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 4px
+    }
+
+    [hidden] {
+      display: none !important
+    }
+
+    .wrap {
+      width: min(1100px, calc(100% - 40px));
+      margin: 0 auto
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--serif);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -.01em
+    }
+
+    .g {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    .top {
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 5
+    }
+
+    .bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 0;
+      gap: 16px;
+      flex-wrap: wrap
+    }
+
+    .brand {
+      font: 700 1.7rem var(--serif);
+      text-decoration: none
+    }
+
+    nav {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: .96rem;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+      transition: color .2s
+    }
+
+    nav a:hover {
+      color: var(--ink)
+    }
+
+    nav a.on {
+      color: var(--teal);
+      border-color: var(--teal)
+    }
+
+    .head {
+      text-align: center;
+      padding: 150px 0 48px
+    }
+
+    .head h1 {
+      font-size: clamp(2.8rem, 6vw, 4.4rem)
+    }
+
+    .head p {
+      max-width: 34em;
+      margin: 18px auto 0;
+      color: var(--muted);
+      font-size: 1.12rem
+    }
+
+    .hero {
+      background: linear-gradient(180deg, #E3EEE9 0%, #F2EEE2 55%, var(--bg) 100%);
+      text-align: center;
+      padding: 200px 0 120px
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 7px 18px;
+      border: 1px solid #B9D3CB;
+      background: #E6F0EC;
+      color: var(--teal);
+      border-radius: 999px;
+      font-size: .9rem;
+      font-weight: 500;
+      margin-bottom: 30px
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 6rem)
+    }
+
+    .hero p {
+      max-width: 35em;
+      margin: 26px auto 38px;
+      color: var(--muted);
+      font-size: 1.15rem
+    }
+
+    .btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font: 600 .98rem var(--sans);
+      padding: 14px 28px;
+      border-radius: 12px;
+      border: 1px solid var(--teal);
+      cursor: pointer;
+      transition: background .2s, color .2s
+    }
+
+    .btn.solid {
+      background: var(--teal);
+      color: #fff
+    }
+
+    .btn.solid:hover {
+      background: #0A3837
+    }
+
+    .btn.light {
+      background: #fff;
+      color: var(--ink);
+      border-color: var(--line)
+    }
+
+    .btn.light:hover {
+      border-color: var(--teal);
+      color: var(--teal)
+    }
+
+    .btn svg {
+      width: 18px;
+      height: 18px
+    }
+
+    .sec {
+      padding: 80px 0
+    }
+
+    .sec>.wrap>h2 {
+      font-size: 2.5rem;
+      text-align: center
+    }
+
+    .sec>.wrap>.sub {
+      text-align: center;
+      color: var(--muted);
+      max-width: 32em;
+      margin: 12px auto 48px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 26px
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 14px 40px rgba(20, 40, 36, .07);
+      display: flex;
+      flex-direction: column
+    }
+
+    .cover {
+      aspect-ratio: 16/10;
+      display: grid;
+      place-items: center;
+      font: 600 2.6rem var(--serif);
+      color: #F5EBD3
+    }
+
+    .cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .c1 {
+      background: linear-gradient(135deg, #0F4C4A, #1F6F66 60%, #B08A3E)
+    }
+
+    .c2 {
+      background: linear-gradient(135deg, #2B3D4A, #4C6B72 60%, #C9B27A)
+    }
+
+    .c3 {
+      background: linear-gradient(135deg, #4B5B3E, #7A8F63 60%, #E2D3A6)
+    }
+
+    .body {
+      padding: 24px 26px 28px;
+      display: flex;
+      flex-direction: column;
+      flex: 1
+    }
+
+    .cat {
+      font-size: .88rem;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 4px
+    }
+
+    .body h3 {
+      font-size: 1.65rem;
+      margin-bottom: 8px
+    }
+
+    .body p {
+      color: var(--muted);
+      font-size: .98rem
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 16px 0 18px
+    }
+
+    .tags span,
+    .pill {
+      font-size: .86rem;
+      padding: 5px 14px;
+      background: var(--chip);
+      border-radius: 999px;
+      color: #3B4945
+    }
+
+    .body a {
+      margin-top: auto;
+      color: var(--teal);
+      font-weight: 600;
+      font-size: .95rem;
+      text-underline-offset: 4px
+    }
+
+    .more {
+      text-align: center;
+      margin-top: 44px
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 44px
+    }
+
+    .filters button {
+      font: 500 .95rem var(--sans);
+      padding: 10px 22px;
+      border-radius: 999px;
+      border: 0;
+      background: var(--chip);
+      color: #3B4945;
+      cursor: pointer;
+      transition: background .2s
+    }
+
+    .filters button:hover {
+      background: #E0E5DA
+    }
+
+    .filters button.on {
+      background: var(--teal);
+      color: #fff
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      padding-top: 150px
+    }
+
+    .photo {
+      aspect-ratio: 1;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #0F4C4A, #2F7A6D 60%, #B08A3E);
+      display: grid;
+      place-items: center;
+      font: 600 8rem var(--serif);
+      color: #F5EBD3;
+      box-shadow: 0 30px 70px rgba(15, 76, 74, .22);
+      overflow: hidden
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .about h1 {
+      font-size: clamp(2.6rem, 5vw, 3.8rem);
+      margin-bottom: 24px
+    }
+
+    .about p {
+      color: var(--muted);
+      margin-bottom: 18px
+    }
+
+    .social {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      margin-top: 24px
+    }
+
+    .social a {
+      font-weight: 600;
+      font-size: .95rem;
+      color: var(--teal);
+      text-underline-offset: 4px
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      max-width: 860px;
+      margin: 0 auto
+    }
+
+    .pill {
+      font-size: .95rem;
+      padding: 9px 20px
+    }
+
+    .ms {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 22px;
+      padding: 26px 0;
+      max-width: 900px;
+      margin: 0 auto
+    }
+
+    .ico {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: #E6F0EC;
+      color: var(--teal);
+      display: grid;
+      place-items: center
+    }
+
+    .ico svg {
+      width: 28px;
+      height: 28px
+    }
+
+    .ms small {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--gold);
+      font-weight: 600;
+      font-size: .92rem
+    }
+
+    .ms small::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--line)
+    }
+
+    .ms h3 {
+      font-size: 1.5rem;
+      margin: 4px 0
+    }
+
+    .ms p {
+      color: var(--muted);
+      font-size: .98rem
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px
+    }
+
+    .contact h2 {
+      font-size: 1.9rem;
+      margin-bottom: 26px
+    }
+
+    label {
+      display: block;
+      font-size: .92rem;
+      font-weight: 500;
+      margin-bottom: 6px
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      font: inherit;
+      font-size: 1rem;
+      padding: 13px 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--ink);
+      margin-bottom: 20px
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: 2px solid var(--teal);
+      outline-offset: 1px;
+      border-color: transparent
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical
+    }
+
+    .info {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      background: #F3F5EF;
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      text-decoration: none
+    }
+
+    .info .ico {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      flex: none
+    }
+
+    .info .ico svg {
+      width: 22px;
+      height: 22px
+    }
+
+    .info small {
+      display: block;
+      color: var(--muted);
+      font-size: .85rem
+    }
+
+    .info b {
+      font-weight: 600;
+      word-break: break-word
+    }
+
+    .note {
+      margin-top: 34px;
+      padding: 24px 26px;
+      border-radius: 16px;
+      border: 1px solid #CFE0D9;
+      background: linear-gradient(135deg, #EAF2EE, #F6F1E4)
+    }
+
+    .note h3 {
+      font-size: 1.4rem;
+      margin-bottom: 6px
+    }
+
+    .note p {
+      color: var(--muted);
+      font-size: .97rem
+    }
+
+    footer {
+      background: var(--deep);
+      color: #C5D0CC;
+      padding: 64px 0 32px;
+      margin-top: 40px
+    }
+
+    .fgrid {
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding-bottom: 36px;
+      border-bottom: 1px solid #22302C
+    }
+
+    footer .brand {
+      color: #E7D7AE;
+      display: block;
+      margin-bottom: 14px
+    }
+
+    footer p {
+      max-width: 26em;
+      font-size: .97rem
+    }
+
+    footer h4 {
+      font: 600 .95rem var(--sans);
+      color: #fff;
+      margin-bottom: 14px
+    }
+
+    footer ul {
+      list-style: none
+    }
+
+    footer li {
+      margin-bottom: 8px
+    }
+
+    footer a {
+      text-decoration: none;
+      font-size: .95rem
+    }
+
+    footer a:hover {
+      color: #E7D7AE
+    }
+
+    .copy {
+      padding-top: 26px;
+      font-size: .9rem;
+      color: #8FA09A
+    }
+
+    @media(max-width:820px) {
+
+      .about,
+      .contact {
+        grid-template-columns: 1fr;
+        gap: 40px
+      }
+
+      .hero {
+        padding: 170px 0 80px
+      }
+
+      .photo {
+        font-size: 6rem
+      }
+
+      .bar {
+        padding: 20px 0
+      }
+
+      nav {
+        gap: 18px
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div class="aurora"></div>
+  <header class="top">
+    <div class="wrap bar">
+      <a class="brand" href="#home">Ajantha Devi</a>
+      <nav aria-label="Main"><a data-nav href="#home">Home</a><a data-nav href="#portfolio">Portfolio</a><a data-nav
+          href="#about">About</a><a data-nav href="#contact">Contact</a></nav>
+    </div>
+  </header>
 
-    <nav>
-        <div class="container">
-            <a href="#top" class="logo">Ajantha <span>Devi</span></a>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+  <main>
+    <!-- HOME -->
+    <section class="view" id="home">
+      <div class="hero">
+        <div class="wrap">
+          <span class="badge">Aspiring Data Analyst</span>
+          <h1>From ledgers<br><span class="g">to dashboards</span></h1>
+          <p>BSc Data Science student with four years of accounting and HR experience. I turn careful records into clear
+            analysis with Python, SQL and Tableau.</p>
+          <div class="btns"><a class="btn solid" href="#portfolio">View my work</a><a class="btn light"
+              href="#contact">Get in touch</a></div>
         </div>
-    </nav>
+      </div>
+      <div class="sec">
+        <div class="wrap">
+          <h2>Featured work</h2>
+          <p class="sub">Projects from my degree and diploma, from dashboards to smart contracts.</p>
+          <div class="grid">
+            <article class="card">
+              <div class="cover c1">Solidity</div>
+              <div class="body">
+                <div class="cat">Blockchain</div>
+                <h3>Real Estate Tokenization DApp</h3>
+                <p>Property split into fractional shares on the blockchain, with a frontend for trading them.</p>
+                <div class="tags"><span>Solidity</span><span>Remix IDE</span><span>ERC-1155</span></div><a
+                  href="#portfolio">See details</a>
+              </div>
+            </article>
+            <article class="card">
+              <div class="cover c2">Tableau</div>
+              <div class="body">
+                <div class="cat">Dashboard</div>
+                <h3>Student Performance Dashboard</h3>
+                <p>An interactive view of grades, absences and risk patterns across student groups.</p>
+                <div class="tags"><span>Tableau</span><span>Calculated fields</span></div><a href="#portfolio">See
+                  details</a>
+              </div>
+            </article>
+          </div>
+          <div class="more"><a class="btn light" href="#portfolio">View full portfolio</a></div>
+        </div>
+      </div>
+    </section>
 
-    <main id="top">
-        <section class="hero reveal">
-            <div class="container hero-grid">
-                <div class="hero-card">
-                    <div class="eyebrow"><span class="dot"></span> Data Science Undergraduate • Blockchain Builder</div>
-                    <h1>Elegant <span class="accent">Data</span>,<br>Smart <span
-                            class="accent">Systems</span>,<br>Practical Results.</h1>
-                    <p class="lead">I’m S. Ajantha Devi, a motivated Data Science student with a Higher Diploma in
-                        Computing and Software Engineering, building practical work across Python analysis, Tableau
-                        dashboards, SQL, and smart contract development. I enjoy turning learning into polished outputs
-                        that are clear, useful, and visually strong.</p>
-                    <div class="hero-pills">
-                        <span class="pill">Python</span>
-                        <span class="pill">Tableau</span>
-                        <span class="pill">R</span>
-                        <span class="pill">SQL</span>
-                        <span class="pill">Solidity</span>
-                        <span class="pill">HTML / CSS / JavaScript</span>
-                        <span class="pill">Remix IDE</span>
-                        <span class="pill">Business Intelligence</span>
-                    </div>
-                    <div class="hero-actions">
-                        <a class="btn btn-primary" href="#projects">View My Projects</a>
-                        <a class="btn btn-secondary" href="#contact">Get In Touch</a>
-                    </div>
-                </div>
+    <!-- PORTFOLIO -->
+    <section class="view" id="portfolio" hidden>
+      <div class="head wrap">
+        <h1>My portfolio</h1>
+        <p>Academic projects across data analysis, dashboards and blockchain.</p>
+      </div>
+      <div class="sec" style="padding-top:20px">
+        <div class="wrap">
+          <div class="filters" role="group" aria-label="Filter projects">
+            <button class="on" data-f="all">All</button><button data-f="Blockchain">Blockchain</button><button
+              data-f="Dashboard">Dashboards</button><button data-f="Python">Python</button>
+          </div>
+          <div class="grid">
+            <!-- To add a screenshot, replace the text inside .cover with: <img src="your-image.jpg" alt="Project name"> -->
+            <article class="card" data-c="Blockchain">
+              <div class="cover c1">Solidity</div>
+              <div class="body">
+                <div class="cat">Blockchain</div>
+                <h3>Real Estate Tokenization DApp</h3>
+                <p>Fractional ownership of property, with buy, sell and transfer functions and a list of the top 10
+                  beneficiaries.</p>
+                <div class="tags"><span>Solidity</span><span>Remix IDE</span><span>ERC-1155</span><span>MetaMask</span>
+                </div><a href="https://github.com/sivasubramaniamajantha-ux?tab=repositories" target="_blank"
+                  rel="noopener">View on GitHub</a>
+              </div>
+            </article>
+            <article class="card" data-c="Dashboard">
+              <div class="cover c2">Tableau</div>
+              <div class="body">
+                <div class="cat">Dashboard</div>
+                <h3>Student Performance Dashboard</h3>
+                <p>Scatter, bar and insight views with filters, built to show which students may be at risk.</p>
+                <div class="tags"><span>Tableau</span><span>Calculated fields</span><span>Dashboard design</span></div>
+                <a href="https://public.tableau.com/" target="_blank" rel="noopener">View dashboard</a>
+              </div>
+            </article>
+            <article class="card" data-c="Python">
+              <div class="cover c3">Python</div>
+              <div class="body">
+                <div class="cat">Python</div>
+                <h3>Python Data Analysis</h3>
+                <p>Cleaning data, engineering features and explaining the results with charts and simple statistics.</p>
+                <div class="tags"><span>Python</span><span>Pandas</span><span>Matplotlib</span><span>EDA</span></div><a
+                  href="https://github.com/sivasubramaniamajantha-ux?tab=repositories" target="_blank"
+                  rel="noopener">View project</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
 
-                <aside class="glass profile-panel reveal">
-                    <div class="photo-card">
-                        <!-- Replace profile-photo.jpg with your real photo file name after uploading it to GitHub -->
-                        <!-- Example: <img src="profile-photo.jpg" alt="Ajantha Devi"> -->
-                        <div class="photo-placeholder">
-                            Upload your photo to GitHub and replace this box with:<br><strong>&lt;img
-                                src="profile-photo.jpg" alt="Ajantha Devi"&gt;</strong>
-                        </div>
-                        <div class="photo-badge">Add Your Professional Photo</div>
-                    </div>
-                    <div class="profile-top">
-                        <span class="mini-tag">Profile Snapshot</span>
-                        <h3>Aspiring Data Analyst</h3>
-                        <p>Entry-level candidate with academic training in data science and prior professional
-                            experience in accounting, HR support, billing, and administration. Strong work ethic, fast
-                            learning ability, and practical project mindset.</p>
-                    </div>
-                    <div class="stats-grid">
-                        <div class="stat">
-                            <strong>2025</strong>
-                            <span>Currently pursuing BSc in Data Science</span>
-                        </div>
-                        <div class="stat">
-                            <strong>2024</strong>
-                            <span>Completed Higher Diploma in Computing and Software Engineering</span>
-                        </div>
-                        <div class="stat">
-                            <strong>4+ yrs</strong>
-                            <span>Experience across accounting, HR support and administration</span>
-                        </div>
-                        <div class="stat">
-                            <strong>Goal</strong>
-                            <span>Grow in data analytics, BI, and practical software development</span>
-                        </div>
-                    </div>
-                </aside>
+    <!-- ABOUT -->
+    <section class="view" id="about" hidden>
+      <div class="wrap about">
+        <!-- To add your photo, replace AD with: <img src="profile-photo.jpg" alt="Ajantha Devi"> -->
+        <div class="photo" aria-hidden="true">AD</div>
+        <div>
+          <h1>Careful with numbers,<br><span class="g">curious about data</span></h1>
+          <p>I'm Ajantha Devi, a BSc Data Science student at ICBT Colombo, based in Piliyandala. I hold a Higher Diploma
+            in Computing and Software Engineering from Cardiff Metropolitan University.</p>
+          <p>Before returning to study, I worked in hospital billing and then as an accountant and HR assistant. That
+            work taught me to check every figure and explain it plainly. I'm now looking for an entry-level data analyst
+            or business intelligence role.</p>
+          <div class="social"><a href="https://github.com/sivasubramaniamajantha-ux" target="_blank"
+              rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/ajantha-devi-sivasubramaniam-310279257/"
+              target="_blank" rel="noopener">LinkedIn</a><a href="AjanthaDevi_CV_new.pdf" download>Download CV</a></div>
+        </div>
+      </div>
+      <div class="sec">
+        <div class="wrap">
+          <h2>Skills and expertise</h2>
+          <p class="sub"></p>
+          <div class="pills"><span class="pill">Python</span><span class="pill">Pandas</span><span
+              class="pill">Matplotlib</span><span class="pill">R</span><span class="pill">SQL</span><span
+              class="pill">Tableau</span><span class="pill">Business Intelligence</span><span class="pill">HTML, CSS,
+              JavaScript</span><span class="pill">Solidity</span><span class="pill">Remix IDE</span><span
+              class="pill">Tamil, English, Sinhala</span></div>
+        </div>
+      </div>
+      <div class="sec" style="padding-top:20px">
+        <div class="wrap">
+          <h2>Key milestones</h2>
+          <p class="sub"></p>
+          <div class="ms">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="7" width="18" height="13" rx="2" />
+                <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18" />
+              </svg></div>
+            <div><small>2019 to 2021</small>
+              <h3>Cashier, Billing and Receptionist</h3>
+              <p>Lakeside Adventist Hospital, Kandy. Payments, billing records, appointments and confidential
+                information.</p>
             </div>
-        </section>
-
-        <section id="about" class="reveal">
-            <div class="container grid-2">
-                <div class="panel about-copy">
-                    <div class="section-head">
-                        <span class="section-kicker">About Me</span>
-                        <h2 class="section-title">A balanced mix of technical learning and real work discipline</h2>
-                    </div>
-                    <p>I am building my career at the intersection of data, dashboards, and digital solutions. My
-                        academic path includes a Higher Diploma in Computing and Software Engineering and current
-                        studies in Data Science, while my professional background gave me hands-on responsibility in
-                        finance, operations, reception, billing, and HR-related support.</p>
-                    <p>This combination helps me approach projects with both technical curiosity and practical
-                        discipline. I focus on creating outputs that are not only functional, but also clear,
-                        presentable, and useful for real decision-making.</p>
-                    <p>I am especially interested in data analyst roles, business intelligence work, and
-                        portfolio-driven software projects that demonstrate growth through real implementation.</p>
-                    <ul class="focus-list">
-                        <li>Strong interest in data analysis, reporting, and dashboard storytelling</li>
-                        <li>Hands-on blockchain project work using Solidity and Remix</li>
-                        <li>Comfortable improving work through repeated refinement and testing</li>
-                        <li>Motivated, adaptable, and detail-oriented in both study and practice</li>
-                    </ul>
-                </div>
-
-                <div id="education" class="panel">
-                    <div class="section-head">
-                        <span class="section-kicker">Education</span>
-                        <h2 class="section-title">Academic Journey</h2>
-                    </div>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <small>Current</small>
-                            <h4>Bachelor of Science in Data Science</h4>
-                            <p>Currently pursuing studies at ICBT Campus, Colombo, building knowledge in analytics,
-                                data-driven thinking, and practical technical work.</p>
-                        </div>
-                        <div class="timeline-item">
-                            <small>Completed in 2024</small>
-                            <h4>Higher Diploma in Computing and Software Engineering</h4>
-                            <p>Completed through Cardiff Metropolitan University at ICBT Campus, Kandy, with a
-                                foundation in software, systems, and computing concepts.</p>
-                        </div>
-                        <div class="timeline-item">
-                            <small>Additional</small>
-                            <h4>Diploma in English Language</h4>
-                            <p>Completed with a credit pass, strengthening communication for academic, professional, and
-                                presentation work.</p>
-                        </div>
-                    </div>
-                </div>
+          </div>
+          <div class="ms">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="7" width="18" height="13" rx="2" />
+                <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18" />
+              </svg></div>
+            <div><small>2021 to 2025</small>
+              <h3>Accountant and HR Assistant</h3>
+              <p>Kuruppuarachchi Traders, Kandy. Daily accounts, reports, reconciliations, salaries and HR support.</p>
             </div>
-        </section>
-
-        <section id="skills" class="reveal">
-            <div class="container">
-                <div class="section-head">
-                    <span class="section-kicker">Skills & Strengths</span>
-                    <h2 class="section-title">Core capabilities I bring into projects</h2>
-                    <p class="section-text">These skills reflect both the portfolio work already built and the qualities
-                        highlighted in my CV: fast learning, adaptability, teamwork, strong work ethic, and a practical
-                        mindset toward completing real tasks well.</p>
-                </div>
-                <div class="cards">
-                    <article class="card">
-                        <div class="icon">📊</div>
-                        <h3>Tableau & Dashboard Design</h3>
-                        <p>Creating interactive dashboards, filters, calculated fields, and polished visual storytelling
-                            for academic and analytical reporting.</p>
-                    </article>
-                    <article class="card">
-                        <div class="icon">🐍</div>
-                        <h3>Python for Analysis</h3>
-                        <p>Working with data cleaning, exploratory analysis, feature creation, visualisation, and
-                            interpretation using practical academic workflows.</p>
-                    </article>
-                    <article class="card">
-                        <div class="icon">🗂️</div>
-                        <h3>SQL & Structured Data</h3>
-                        <p>Querying datasets, filtering records, and thinking in a structured way when working with
-                            business and data tasks.</p>
-                    </article>
-                    <article class="card">
-                        <div class="icon">⛓️</div>
-                        <h3>Solidity & Smart Contracts</h3>
-                        <p>Building tokenization logic, asset ownership functions, transactions, and project-based
-                            blockchain solutions using Remix IDE.</p>
-                    </article>
-                    <article class="card">
-                        <div class="icon">💻</div>
-                        <h3>Frontend Basics</h3>
-                        <p>Using HTML, CSS, and JavaScript to create clean interfaces for portfolios and project
-                            demonstrations.</p>
-                    </article>
-                    <article class="card">
-                        <div class="icon">🧠</div>
-                        <h3>Problem Solving</h3>
-                        <p>Breaking large assignment requirements into smaller tasks, debugging issues, and improving
-                            quality step by step.</p>
-                    </article>
-                    <article class="card">
-                        <div class="icon">🤝</div>
-                        <h3>Teamwork & Adaptability</h3>
-                        <p>Motivated to learn quickly, work with others, and contribute reliably in dynamic
-                            environments.</p>
-                    </article>
-                    <article class="card">
-                        <div class="icon">📌</div>
-                        <h3>Professional Discipline</h3>
-                        <p>Attention to detail developed through experience in accounting, reception, billing,
-                            reporting, and HR-related responsibilities.</p>
-                    </article>
-                </div>
+          </div>
+          <div class="ms">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 9l10-5 10 5-10 5-10-5zM6 11v5c3 2.5 9 2.5 12 0v-5" />
+              </svg></div>
+            <div><small>2024</small>
+              <h3>Higher Diploma in Computing and Software Engineering</h3>
+              <p>Completed through Cardiff Metropolitan University at ICBT Campus, Kandy.</p>
             </div>
-        </section>
-
-        <section id="projects" class="reveal">
-            <div class="container">
-                <div class="section-head">
-                    <span class="section-kicker">Featured Projects</span>
-                    <h2 class="section-title">Work that reflects my learning journey</h2>
-                    <p class="section-text">I added project screenshot areas, so your portfolio can look more premium.
-                        Upload your images to GitHub and replace each placeholder with a real screenshot file.</p>
-                </div>
-                <div class="projects">
-                    <article class="project">
-                        <div class="project-index">Project 01</div>
-                        <div class="project-shot">
-                            <!-- Replace dapp-screenshot.jpg with your actual image -->
-                            <!-- Example: <img src="dapp-screenshot.jpg" alt="Real Estate Tokenization DApp Screenshot"> -->
-                            <div class="shot-placeholder">Add your DApp screenshot
-                                here<br><strong>dapp-screenshot.jpg</strong></div>
-                        </div>
-                        <h3>Real Estate Tokenization DApp</h3>
-                        <p>A blockchain-based solution for tokenizing real estate into fractional shares using Solidity
-                            smart contracts and a connected frontend interface.</p>
-                        <ul>
-                            <li>Created tokenized assets with fractional ownership logic</li>
-                            <li>Supported buy, sell, and transfer functions</li>
-                            <li>Calculated owners and top 10 beneficiaries</li>
-                            <li>Focused on assignment alignment, usability, and contract logic</li>
-                        </ul>
-                        <div class="tags">
-                            <span class="tag">Solidity</span><span class="tag">Remix IDE</span><span
-                                class="tag">ERC-1155</span><span class="tag">MetaMask</span><span class="tag">Frontend
-                                UI</span>
-                        </div>
-                        <a href="#">Add GitHub Repo Link →</a>
-                    </article>
-
-                    <article class="project">
-                        <div class="project-index">Project 02</div>
-                        <div class="project-shot">
-                            <!-- Replace tableau-dashboard.jpg with your actual image -->
-                            <!-- Example: <img src="tableau-dashboard.jpg" alt="Student Performance Tableau Dashboard Screenshot"> -->
-                            <div class="shot-placeholder">Add your Tableau dashboard screenshot
-                                here<br><strong>tableau-dashboard.jpg</strong></div>
-                        </div>
-                        <h3>Student Performance Tableau Dashboard</h3>
-                        <p>An interactive dashboard exploring grades, absences, alcohol consumption, and student risk
-                            patterns through clear visual storytelling.</p>
-                        <ul>
-                            <li>Built scatter, bar, and insight-driven dashboard views</li>
-                            <li>Used calculated fields and interactive filters</li>
-                            <li>Highlighted performance and at-risk student segments</li>
-                            <li>Balanced analysis quality with elegant presentation</li>
-                        </ul>
-                        <div class="tags">
-                            <span class="tag">Tableau</span><span class="tag">Dashboard Design</span><span
-                                class="tag">Calculated Fields</span><span class="tag">Storytelling</span>
-                        </div>
-                        <a href="#">Add Dashboard Link →</a>
-                    </article>
-
-                    <article class="project">
-                        <div class="project-index">Project 03</div>
-                        <div class="project-shot">
-                            <!-- Replace python-analysis.jpg with your actual image -->
-                            <!-- Example: <img src="python-analysis.jpg" alt="Python Data Analysis Screenshot"> -->
-                            <div class="shot-placeholder">Add your Python analysis screenshot
-                                here<br><strong>python-analysis.jpg</strong></div>
-                        </div>
-                        <h3>Python Data Analysis Portfolio</h3>
-                        <p>A set of practical academic analyses using Python to clean data, discover patterns, and
-                            support reports with interpretable insights.</p>
-                        <ul>
-                            <li>Performed data cleaning and feature engineering</li>
-                            <li>Used charts and simple statistics to explain results</li>
-                            <li>Connected EDA outputs to dashboard development</li>
-                            <li>Presented results in a clear, understandable format</li>
-                        </ul>
-                        <div class="tags">
-                            <span class="tag">Python</span><span class="tag">Pandas</span><span
-                                class="tag">Matplotlib</span><span class="tag">EDA</span>
-                        </div>
-                        <a href="#">Add Project Link →</a>
-                    </article>
-                </div>
+          </div>
+          <div class="ms">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 9l10-5 10 5-10 5-10-5zM6 11v5c3 2.5 9 2.5 12 0v-5" />
+              </svg></div>
+            <div><small>2025 to present</small>
+              <h3>BSc Data Science</h3>
+              <p>ICBT Campus, Colombo. Analytics, visualization and data-driven thinking.</p>
             </div>
-        </section>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <section id="experience" class="reveal">
-            <div class="container grid-2">
-                <div class="panel">
-                    <div class="section-head">
-                        <span class="section-kicker">Experience</span>
-                        <h2 class="section-title">Professional background</h2>
-                    </div>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <small>2021 – 2025</small>
-                            <h4>Accountant & HR Assistant</h4>
-                            <p>Handled daily accounting operations, reports, reconciliations, salaries, and HR-related
-                                responsibilities. Supported accurate records, compliance, and practical business
-                                operations.</p>
-                        </div>
-                        <div class="timeline-item">
-                            <small>2019 – 2021</small>
-                            <h4>Cashier, Billing & Receptionist</h4>
-                            <p>Managed payments, front desk communication, billing records, appointments, and
-                                confidential information handling with professionalism and accuracy.</p>
-                        </div>
-                    </div>
-                </div>
+    <!-- CONTACT -->
+    <section class="view" id="contact" hidden>
+      <div class="head wrap">
+        <h1>Let's connect</h1>
+        <p>Hiring for a data analyst or BI role? Send me a message and I'll get back to you.</p>
+      </div>
+      <div class="wrap contact" style="padding-bottom:40px">
+        <div>
+          <h2>Send a message</h2>
+          <form id="form">
+            <label for="n">Name</label><input id="n" required autocomplete="name">
+            <label for="e">Your email</label><input id="e" type="email" required autocomplete="email">
+            <label for="s">Subject</label><input id="s" placeholder="Data analyst opportunity">
+            <label for="m">Message</label><textarea id="m" required
+              placeholder="Tell me about the role or project"></textarea>
+            <button class="btn solid" type="submit">Send message</button>
+          </form>
+        </div>
+        <div>
+          <h2>Contact information</h2>
+          <a class="info" href="mailto:sivasubramaniamajantha@gmail.com">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="M3 7l9 6 9-6" />
+              </svg></div>
+            <div><small>Email</small><b>sivasubramaniamajantha@gmail.com</b></div>
+          </a>
+          <div class="info">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z" />
+                <circle cx="12" cy="10" r="2.5" />
+              </svg></div>
+            <div><small>Location</small><b>Piliyandala, Sri Lanka</b></div>
+          </div>
+          <a class="info" href="AjanthaDevi_CV_new.pdf" download>
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14" />
+              </svg></div>
+            <div><small>Curriculum vitae</small><b>Download my CV</b></div>
+          </a>
+          <div class="note">
+            <h3>Find me online</h3>
+            <p>See my code on <a href="https://github.com/sivasubramaniamajantha-ux" target="_blank"
+                rel="noopener">GitHub</a> or connect on <a
+                href="https://www.linkedin.com/in/ajantha-devi-sivasubramaniam-310279257/" target="_blank"
+                rel="noopener">LinkedIn</a>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-                <div class="panel">
-                    <div class="section-head">
-                        <span class="section-kicker">Leadership & Activities</span>
-                        <h2 class="section-title">Beyond coursework</h2>
-                    </div>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <small>School Leadership</small>
-                            <h4>Prefect & Senior Prefect Roles</h4>
-                            <p>Developed responsibility, organisation, and confidence through school leadership
-                                positions.</p>
-                        </div>
-                        <div class="timeline-item">
-                            <small>Society Leadership</small>
-                            <h4>President of Hindu and Tamil Societies</h4>
-                            <p>Gained teamwork, event involvement, and communication experience through active
-                                participation and leadership.</p>
-                        </div>
-                        <div class="timeline-item">
-                            <small>Support Role</small>
-                            <h4>First Aid Team Leadership</h4>
-                            <p>Built reliability and calm decision-making through supportive and service-oriented school
-                                responsibilities.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <footer>
+    <div class="wrap">
+      <div class="fgrid">
+        <div><a class="brand" href="#home">Ajantha Devi</a>
+          <p>Data Science student turning careful records into clear analysis.</p>
+        </div>
+        <div>
+          <h4>Quick links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copy">© 2026 Ajantha Devi. All rights reserved.</div>
+    </div>
+  </footer>
 
-        <section id="contact" class="reveal">
-            <div class="container">
-                <div class="panel">
-                    <div class="section-head">
-                        <span class="section-kicker">Contact</span>
-                        <h2 class="section-title">Let’s connect professionally</h2>
-                        <p class="section-text">I also added a downloadable CV button. Upload your PDF to the same
-                            GitHub repository and keep the file name exactly as shown below, or change the link if you
-                            rename the file.</p>
-                    </div>
-                    <div class="contact-grid">
-                        <a class="card contact-item" href="mailto:sivasubramaniamajantha@gmail.com">
-                            <div class="icon">📧</div>
-                            <strong>Email</strong>
-                            <span>sivasubramaniamajantha@gmail.com</span>
-                        </a>
-                        <a class="card contact-item" href="#">
-                            <div class="icon">💻</div>
-                            <strong>GitHub</strong>
-                            <span>Add your exact GitHub profile URL here</span>
-                        </a>
-                        <a class="card contact-item" href="#">
-                            <div class="icon">💼</div>
-                            <strong>LinkedIn</strong>
-                            <span>Add your LinkedIn profile URL here</span>
-                        </a>
-                        <a class="card contact-item" href="AjanthaDevi_CV_new.pdf" download>
-                            <div class="icon">📄</div>
-                            <strong>Download CV</strong>
-                            <span>Upload the PDF to GitHub with this same file name</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+  <script>
+    const views = [...document.querySelectorAll('.view')];
+    function show() {
+      let id = location.hash.slice(1);
+      if (!views.some(v => v.id === id)) id = 'home';
+      views.forEach(v => v.hidden = v.id !== id);
+      document.querySelectorAll('[data-nav]').forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + id));
+      window.scrollTo(0, 0);
+    }
+    addEventListener('hashchange', show); show();
 
-    <footer>
-        <div class="container">© 2026 Ajantha Devi • Designed for an elegant public portfolio with strong visual
-            storytelling.</div>
-    </footer>
+    document.querySelectorAll('.filters button').forEach(b => b.addEventListener('click', () => {
+      document.querySelectorAll('.filters button').forEach(x => x.classList.toggle('on', x === b));
+      document.querySelectorAll('#portfolio .card').forEach(c => c.hidden = b.dataset.f !== 'all' && c.dataset.c !== b.dataset.f);
+    }));
 
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
-            link.addEventListener('click', e => {
-                const target = document.querySelector(link.getAttribute('href'));
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.14, rootMargin: '0px 0px -40px 0px' });
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        const sections = document.querySelectorAll('main section[id]');
-        const navLinks = document.querySelectorAll('.nav-links a');
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                if (window.scrollY >= section.offsetTop - 140) current = section.id;
-            });
-            navLinks.forEach(link => {
-                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
-            });
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 18;
-            const y = (e.clientY / window.innerHeight - 0.5) * 18;
-            document.querySelectorAll('.hero-card, .profile-panel').forEach((el, index) => {
-                const factor = index === 0 ? 1 : 0.7;
-                el.style.transform = `translate3d(${x * factor}px, ${y * factor}px, 0)`;
-            });
-        });
-    </script>
+    document.getElementById('form').addEventListener('submit', e => {
+      e.preventDefault();
+      const v = id => document.getElementById(id).value;
+      const body = v('m') + '\n\nFrom: ' + v('n') + ' (' + v('e') + ')';
+      location.href = 'mailto:sivasubramaniamajantha@gmail.com?subject=' + encodeURIComponent(v('s') || 'Portfolio enquiry') + '&body=' + encodeURIComponent(body);
+    });
+  </script>
 </body>
 
 </html>
